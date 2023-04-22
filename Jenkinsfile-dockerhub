@@ -32,7 +32,7 @@ pipeline {
         }
         stage('Trigger ManifestUpdate') {
              steps{
-                build job: 'argocd-manifest', parameters: [string(name: 'DOCKERTAG', value: env.BUILD_NUMBER)]     
+                build job: 'argocd-manifest-amazon', parameters: [string(name: 'DOCKERTAG', value: env.BUILD_NUMBER)]     
 
             } 
         }      
