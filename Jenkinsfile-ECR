@@ -1,0 +1,58 @@
+pipeline {
+    agent any
+    options {
+        timeout(time: 20, unit: 'MINUTES')
+    }
+    stages{
+        // NPM dependencies
+        stage('pull npm dependencies') {
+            steps {
+                sh 'npm install'
+            }
+        }
+        // Run Unit test
+        stage('Run Unit Test') {
+            steps {
+                sh 'npm test'
+            }
+        }
+        // run sonarqube test
+        stage('Run Sonarqube') {
+            environment {
+                scannerHome = tool 'ibt-sonarqube';
+            }
+            steps {
+              withSonarQubeEnv(credentialsId: 'ibt-sonar', installationName: 'IBT sonarqube') {
+                sh "${scannerHome}/bin/sonar-scanner"
+              }
+            }
+        }
+        stage('build Docker Container') {
+            steps {
+                script {
+                    // build image
+                    docker.build("335871625378.dkr.ecr.eu-west-2.amazonaws.com/nodejsapp:latest")
+                }
+            }
+        }
+        stage('Trivy Scan (Aqua)') {
+            steps {
+                sh 'trivy image --format template --output trivy_report.html 335871625378.dkr.ecr.eu-west-2.amazonaws.com/nodejsapp:latest'
+            }
+       }
+        stage('Push to ECR') {
+            steps {
+                script{
+                    //https://<AwsAccountNumber>.dkr.ecr.<region>.amazonaws.com/rekeyole-app', 'ecr:<region>:<credentialsId>
+                    docker.withRegistry('https://335871625378.dkr.ecr.eu-west-2.amazonaws.com/nodejsapp', 'ecr:eu-west-2:karo-ecr') {
+                    // build image
+                    def myImage = docker.build("335871625378.dkr.ecr.eu-west-2.amazonaws.com/nodejsapp:latest")
+                    // push image
+                    myImage.push()
+                    }
+                }
+            }
+        }
+        
+    }
+}
