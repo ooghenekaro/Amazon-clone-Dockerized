@@ -1,17 +1,16 @@
-FROM node:20-buster-slim 
+FROM node:lts-alpine3.17
 
-ARG NODE_ENV=production
-ENV NODE_ENV=${NODE_ENV}
+ENV NODE_ENV=production
 
-ENV export NODE_OPTIONS=--openssl-legacy-provider
 
-WORKDIR /usr/src/app
+WORKDIR /app
 
-COPY package.json .
-COPY yarn.lock .
+COPY package*.json /app
 
-RUN yarn install 
+RUN npm install
 
-COPY . . 
+COPY . .
 
-CMD ["yarn", "start"]
+EXPOSE 3000
+
+CMD [ "node", "server.js" ]
