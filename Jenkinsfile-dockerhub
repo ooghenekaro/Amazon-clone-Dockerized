@@ -14,18 +14,6 @@ pipeline {
            git branch: 'main', url: 'https://github.com/ooghenekaro/Amazon-clone-Dockerized.git'
             }
         }
-        // run sonarqube test
-        stage('Run Sonarqube') {
-            environment {
-                scannerHome = tool 'ibt-sonarqube';
-            }
-            steps {
-              withSonarQubeEnv(credentialsId: 'ibt-sonar', installationName: 'IBT sonarqube') {
-                sh "${scannerHome}/bin/sonar-scanner"
-              }
-            }
-        }
-
         stage('Build docker image') {
             steps {  
                 sh 'docker build -t $APP_NAME:$BUILD_NUMBER .'
