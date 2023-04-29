@@ -14,6 +14,17 @@ pipeline {
            git branch: 'main', url: 'https://github.com/ooghenekaro/Amazon-clone-Dockerized.git'
             }
         }
+        // run sonarqube test
+        stage('Run Sonarqube') {
+            environment {
+                scannerHome = tool 'ibt-sonarqube';
+            }
+            steps {
+              withSonarQubeEnv(credentialsId: 'ibt-sonar', installationName: 'IBT sonarqube') {
+                sh "${scannerHome}/bin/sonar-scanner"
+              }
+            }
+        }
 
         stage('Build docker image') {
             steps {  
@@ -25,6 +36,11 @@ pipeline {
                 sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
             }
         }
+        stage('Trivy Scan (Aqua)') {
+            steps {
+                sh 'trivy image --format template --output trivy_report.html ooghenekaro/amazon:latest'
+            }
+       }
         stage('push image') {
             steps{
                 sh 'docker push $APP_NAME:$BUILD_NUMBER'
