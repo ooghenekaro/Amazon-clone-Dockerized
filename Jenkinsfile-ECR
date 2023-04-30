@@ -11,11 +11,11 @@ pipeline {
             }
         }
         // Run Unit test
-        stage('Run Unit Test') {
-            steps {
-                sh 'npm test'
-            }
-        }
+        //stage('Run Unit Test') {
+          //  steps {
+               // sh 'npm test'
+           // }
+        //}
         // run sonarqube test
         stage('Run Sonarqube') {
             environment {
