@@ -1,4 +1,4 @@
-FROM node:lts-alpine3.17
+FROM node:lts-buster-slim
 
 ENV NODE_ENV=production
 
