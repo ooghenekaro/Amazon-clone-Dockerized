@@ -16,7 +16,7 @@ pipeline {
         }
         stage('Build docker image') {
             steps {  
-                sh 'docker build -t $APP_NAME:$BUILD_NUMBER .'
+                sh 'DOCKER_BUILDKIT=0 docker build -t $APP_NAME:$BUILD_NUMBER .'
             }
         }
         stage('login to dockerhub') {
