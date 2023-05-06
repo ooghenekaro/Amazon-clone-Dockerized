@@ -55,11 +55,9 @@ pipeline {
     post { 
         always { 
            //slackSend message: 'Pipeline completed - Build deployed successfully '
-           slackSend color: "good", message: "Build Deployed Successfully"
-           
-  def JENKINS_URL= "https://jenkins-ibtlearning.com/"
-  def JOB_NAME = env.JOB_NAME
-  def BUILD_ID= env.BUILD_ID
+           //slackSend color: "good", message: "Build Deployed Successfully"
+           slackSend channel: '#notification', color: 'good', message: "Build has been successful for Build N°: ${env.BUILD_NUMBER}", teamDomain: 'devops-nov-15th-cohort', tokenCredentialId: 'slack'
+
       }
     }
 }
