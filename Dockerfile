@@ -1,16 +1,17 @@
-FROM node:lts-buster-slim
+FROM node:lts-buster-slim 
 
-ENV NODE_ENV=production
+ARG NODE_ENV=production
+ENV NODE_ENV=${NODE_ENV}
 
+ENV export NODE_OPTIONS=--openssl-legacy-provider
 
-WORKDIR /app
+WORKDIR /usr/src/app
 
-COPY package*.json /app
+COPY package.json .
+COPY yarn.lock .
 
-RUN npm install
+RUN yarn install 
 
-COPY . .
+COPY . . 
 
-EXPOSE 3000
-
-CMD [ "node", "server.js" ]
+CMD ["yarn", "start"]
