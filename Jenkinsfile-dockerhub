@@ -55,10 +55,8 @@ pipeline {
     post { 
         always { 
            //slackSend message: 'Pipeline completed - Build deployed successfully '
-           //slackSend color: "good", message: "Build Deployed Successfully"
-           slackSend channel: '#notification', color: 'good', message: "Build has been successful for Build N°: ${env.BUILD_NUMBER}", teamDomain: 'devops-nov-15th-cohort', tokenCredentialId: 'slack'
-
-      }
+           //slackSend color: "good", message: "Build Deployed Successfully, Downstream Job Triggered"
+           }
     }
 }
 
