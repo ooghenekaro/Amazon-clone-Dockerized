@@ -62,7 +62,7 @@ function Cart() {
         </div>
         {basket.length === 0 ? (
           <div>
-            <h2>Your basket is not empty</h2>
+            <h2>Your basket is empty</h2>
             <h6>Start Adding Items to your basket</h6>
           </div>
         ) : (
