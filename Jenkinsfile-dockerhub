@@ -54,7 +54,9 @@ pipeline {
         }
     post { 
         always { 
-           slackSend message: 'Pipeline completed - Build deployed successfully '
+           //slackSend message: 'Pipeline completed - Build deployed successfully '
+           slackSend color: "good", message: "Build Deployed Successfully"
+
       }
     }
 }
