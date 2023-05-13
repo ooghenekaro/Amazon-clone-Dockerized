@@ -33,11 +33,14 @@ pipeline {
         stage('Build docker image') {
             
               agent {
-         docker { image 'docker' }
+         docker { image 'docker' 
+                args '-u root:root'
+
+         }
       }
             
             steps {  
-                sh 'sudo docker build -t $APP_NAME:$BUILD_NUMBER .'
+                sh 'docker build -t $APP_NAME:$BUILD_NUMBER .'
             }
         }
         stage('login to dockerhub') {
@@ -63,7 +66,7 @@ pipeline {
          docker { image 'docker' }
       }
             steps{
-                sh 'sudo docker push $APP_NAME:$BUILD_NUMBER'
+                sh 'docker push $APP_NAME:$BUILD_NUMBER'
             }
         }
     }
