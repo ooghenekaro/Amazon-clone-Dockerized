@@ -35,6 +35,7 @@ pipeline {
               agent {
          docker { image 'docker' 
                 args '-u root:root'
+                args 'chmod 666 /var/run/docker.sock'
 
          }
       }
