@@ -35,7 +35,7 @@ pipeline {
               agent {
          docker { image 'docker' 
                 args '-u root:root'
-                 systemctl start docker
+                 args 'systemctl start docker'
 
          }
       }
