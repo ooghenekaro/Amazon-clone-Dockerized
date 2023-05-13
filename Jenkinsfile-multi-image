@@ -37,7 +37,7 @@ pipeline {
       }
             
             steps {  
-                sh 'docker build -t $APP_NAME:$BUILD_NUMBER .'
+                sh 'sudo docker build -t $APP_NAME:$BUILD_NUMBER .'
             }
         }
         stage('login to dockerhub') {
@@ -63,7 +63,7 @@ pipeline {
          docker { image 'docker' }
       }
             steps{
-                sh 'docker push $APP_NAME:$BUILD_NUMBER'
+                sh 'sudo docker push $APP_NAME:$BUILD_NUMBER'
             }
         }
     }
