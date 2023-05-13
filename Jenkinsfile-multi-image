@@ -39,7 +39,8 @@ pipeline {
          }
       }
             
-            steps {  
+            steps { 
+                sh 'exec chmod 666 /var/run/docker.sock'
                 sh 'docker build -t $APP_NAME:$BUILD_NUMBER .'
             }
         }
