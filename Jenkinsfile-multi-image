@@ -31,25 +31,13 @@ pipeline {
         //    }
         //}
         stage('Build docker image') {
-            
-              agent {
-         docker { image 'docker' 
-                args '-u root:root'
-                args 'chmod 666 /var/run/docker.sock'
-
-         }
-      }
-            
-            steps { 
-                sh 'exec chmod 666 /var/run/docker.sock'
+               agent any
+                steps {
                 sh 'docker build -t $APP_NAME:$BUILD_NUMBER .'
             }
         }
         stage('login to dockerhub') {
-            
-              agent {
-         docker { image 'docker' }
-      }
+                agent any
             steps{
                 sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
             }
@@ -64,9 +52,7 @@ pipeline {
             }
        }
         stage('push image') {
-                 agent {
-         docker { image 'docker' }
-      }
+               agent any      
             steps{
                 sh 'docker push $APP_NAME:$BUILD_NUMBER'
             }
