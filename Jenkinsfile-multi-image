@@ -45,7 +45,7 @@ pipeline {
         stage('Trivy Scan (Aqua)') {
             
               agent {
-         docker { image 'aquasec/trivy:0.40.0-ppc64le' }
+         docker { image 'bitnami/trivy' }
       }
             steps {
                 sh 'trivy image $APP_NAME:$BUILD_NUMBER'
