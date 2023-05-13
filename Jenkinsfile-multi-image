@@ -43,6 +43,7 @@ pipeline {
             }
         }
         stage('Trivy Scan (Aqua)') {
+                 agent any
             steps {
                 sh 'trivy image $APP_NAME:$BUILD_NUMBER'
             }
