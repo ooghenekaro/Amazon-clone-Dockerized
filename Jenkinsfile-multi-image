@@ -45,10 +45,10 @@ pipeline {
         stage('Trivy Scan (Aqua)') {
             
               agent {
-         docker { image 'aquasec/trivy' }
+         docker { image 'aquasec/trivy:0.40.0-ppc64le' }
       }
             steps {
-                sh 'trivy image ooghenekaro/amazon:$BUILD_NUMBER'
+                sh 'trivy image $APP_NAME:$BUILD_NUMBER'
             }
        }
         stage('push image') {
