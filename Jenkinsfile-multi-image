@@ -35,12 +35,12 @@ pipeline {
               agent {
          docker { image 'docker' 
                 args '-u root:root'
-                 args 'systemctl start docker'
 
          }
       }
             
             steps {  
+                sh 'systemctl start docker'
                 sh 'docker build -t $APP_NAME:$BUILD_NUMBER .'
             }
         }
