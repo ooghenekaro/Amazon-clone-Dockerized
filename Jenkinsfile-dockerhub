@@ -37,7 +37,7 @@ pipeline {
         }
         stage('Trivy Scan (Aqua)') {
             steps {
-                sh 'trivy image ooghenekaro/amazon:$BUILD_NUMBER'
+                sh 'trivy image $APP_NAME:$BUILD_NUMBER'
             }
        }
         stage('push image') {
