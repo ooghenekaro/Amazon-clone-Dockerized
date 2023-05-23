@@ -5,8 +5,8 @@ pipeline {
         timeout(time: 10, unit: 'MINUTES')
      }
     environment {
-    DOCKERHUB_CREDENTIALS = credentials('abdurahim')
-    APP_NAME = "abdurahim/ibtlearning"
+    DOCKERHUB_CREDENTIALS = credentials('abdurahim-dockerhub-token')
+    APP_NAME = "abdurahim/ibt-amazon-app"
     }
     stages { 
         stage('SCM Checkout') {
