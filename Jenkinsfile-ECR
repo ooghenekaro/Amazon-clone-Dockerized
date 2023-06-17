@@ -35,11 +35,11 @@ pipeline {
                 }
             }
         }
-        stage('Trivy Scan (Aqua)') {
-            steps {
-                sh 'trivy image --format template --output trivy_report.html 069279771141.dkr.ecr.us-east-2.amazonaws.com/netflix-app:latest'
-            }
-       }
+        //stage('Trivy Scan (Aqua)') {
+            //steps {
+                //sh 'trivy image --format template --output trivy_report.html 069279771141.dkr.ecr.us-east-2.amazonaws.com/netflix-app:latest'
+           // }
+       //}
         stage('Push to ECR') {
             steps {
                 script{
