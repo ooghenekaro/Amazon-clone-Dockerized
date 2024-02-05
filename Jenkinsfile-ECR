@@ -31,22 +31,22 @@ pipeline {
             steps {
                 script {
                     // build image
-                    docker.build("335871625378.dkr.ecr.eu-west-2.amazonaws.com/nodejsapp:latest")
+                    docker.build("069279771141.dkr.ecr.us-east-2.amazonaws.com/netflix-app:latest")
                 }
             }
         }
-        stage('Trivy Scan (Aqua)') {
-            steps {
-                sh 'trivy image --format template --output trivy_report.html 335871625378.dkr.ecr.eu-west-2.amazonaws.com/nodejsapp:latest'
-            }
-       }
+        //stage('Trivy Scan (Aqua)') {
+            //steps {
+                //sh 'trivy image --format template --output trivy_report.html 069279771141.dkr.ecr.us-east-2.amazonaws.com/netflix-app:latest'
+           // }
+       //}
         stage('Push to ECR') {
             steps {
                 script{
-                    //https://<AwsAccountNumber>.dkr.ecr.<region>.amazonaws.com/rekeyole-app', 'ecr:<region>:<credentialsId>
-                    docker.withRegistry('https://335871625378.dkr.ecr.eu-west-2.amazonaws.com/nodejsapp', 'ecr:eu-west-2:karo-ecr') {
+                    //https://<AwsAccountNumber>.dkr.ecr.<region>.amazonaws.com/amazon-app', 'ecr:<region>:<credentialsId>
+                    docker.withRegistry('069279771141.dkr.ecr.us-east-2.amazonaws.com/netflix-app', 'ecr:us-east-2:abdurahim-ecr') {
                     // build image
-                    def myImage = docker.build("335871625378.dkr.ecr.eu-west-2.amazonaws.com/nodejsapp:latest")
+                    def myImage = docker.build("069279771141.dkr.ecr.us-east-2.amazonaws.com/netflix-app:latest")
                     // push image
                     myImage.push()
                     }

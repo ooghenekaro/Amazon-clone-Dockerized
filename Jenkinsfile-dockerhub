@@ -5,13 +5,13 @@ pipeline {
         timeout(time: 10, unit: 'MINUTES')
      }
     environment {
-    DOCKERHUB_CREDENTIALS = credentials('karo-dockerhub')
-    APP_NAME = "ooghenekaro/amazon"
+    DOCKERHUB_CREDENTIALS = credentials('abdurahim-dockerhub-token')
+    APP_NAME = "abdurahim/ibt-amazon-app"
     }
     stages { 
         stage('SCM Checkout') {
             steps{
-           git branch: 'main', url: 'https://github.com/ooghenekaro/Amazon-clone-Dockerized.git'
+           git branch: 'main', url: 'https://github.com/abdurahim50/Amazon-clone-Dockerized.git'
             }
         }
         // run sonarqube test
@@ -47,16 +47,10 @@ pipeline {
         }
         stage('Trigger ManifestUpdate') {
              steps{
-                build job: 'argocd-manifest-amazon', parameters: [string(name: 'DOCKERTAG', value: env.BUILD_NUMBER)]     
-
-            } 
-           } 
+                build job: 'argocd-amazon-manifest', parameters: [string(name: 'DOCKERTAG', value: env.BUILD_NUMBER)]     
+            }
+        
         }
-    post { 
-        always { 
-           //slackSend message: 'Pipeline completed - Build deployed successfully '
-           slackSend color: "good", message: "Build Deployed Successfully, Downstream Job Triggered"
-           }
     }
 }
 
