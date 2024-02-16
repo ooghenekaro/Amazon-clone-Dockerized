@@ -11,7 +11,7 @@ pipeline {
     stages { 
         stage('SCM Checkout') {
             steps{
-           git branch: 'main', url: 'https://github.com/github.com/petoch147/Amazon-clone-Dockerized.git'
+           git branch: 'main', url: 'https://github.com/petoch147/Amazon-clone-Dockerized.git'
             }
         }
         // run sonarqube test
