@@ -1,5 +1,5 @@
 FROM node:lts-buster-slim 
-ARG NODE_ENV=production
+ARG NODE_ENV=productions
 ENV NODE_ENV=${NODE_ENV}
 
 WORKDIR /usr/src/app
